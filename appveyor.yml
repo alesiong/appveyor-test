@@ -22,21 +22,21 @@ install:
 
 before_build:
 - ps: |
-  md build
-  cd build
-  $generator = switch ($env:TOOLSET)
-  {
-      "v140" {"Visual Studio 14 2015"}
-      "v120" {"Visual Studio 12 2013"}
-      "v110" {"Visual Studio 11 2012"}
-      "v100" {"Visual Studio 10 2010"}
-  }
-  if ($env:PLATFORM -eq "x64")
-  {
-      $generator = "$generator Win64"
-  }
-  cmake -G "$generator"  ..
-  cd ..
+    md build
+    cd build
+    $generator = switch ($env:TOOLSET)
+    {
+        "v140" {"Visual Studio 14 2015"}
+        "v120" {"Visual Studio 12 2013"}
+        "v110" {"Visual Studio 11 2012"}
+        "v100" {"Visual Studio 10 2010"}
+    }
+    if ($env:PLATFORM -eq "x64")
+    {
+        $generator = "$generator Win64"
+    }
+    cmake -G "$generator"  ..
+    cd ..
 
 build:
   project: build/data.sln
