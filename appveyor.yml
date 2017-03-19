@@ -27,7 +27,7 @@ before_build:
     md build
     cd build
     cmake --help
-    echo $PATH
+    echo $env:PATH
     $generator = switch ($env:TOOLSET)
     {
         "v140" {"Visual Studio 14 2015"}
