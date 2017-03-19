@@ -1,0 +1,45 @@
+# shallow clone
+clone_depth: 10
+
+os: Visual Studio 2015
+
+platform:
+  - x64
+  - win32
+
+environment:
+  matrix:
+  - Toolset: v140
+  - Toolset: v120
+  - Toolset: v110
+  - Toolset: v100
+
+configuration:
+  - Release
+
+install:
+  - git submodule update --init --recursive
+
+before_build:
+  # Xamarin log spam workaround
+  # - del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
+  - ps: |
+    md build
+    cd build
+    $generator = switch ($env:TOOLSET)
+    {
+        "v140" {"Visual Studio 14 2015"}
+        "v120" {"Visual Studio 12 2013"}
+        "v110" {"Visual Studio 11 2012"}
+        "v100" {"Visual Studio 10 2010"}
+    }
+    if ($env:PLATFORM -eq "x64")
+    {
+        $generator = "$generator Win64"
+    }
+    cmake -G "$generator"  ..
+    cd ..
+
+build:
+  project: build/data.sln
+  parallel: true
