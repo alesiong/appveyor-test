@@ -26,12 +26,14 @@ before_build:
     cd build
     $generator = switch ($env:TOOLSET)
     {
-        "v140" {"Visual Studio 14 2015"}
+        # "v140" {"Visual Studio 14 2015"}
         "v120" {"Visual Studio 12 2013"}
         "v110" {"Visual Studio 11 2012"}
         "v100" {"Visual Studio 10 2010"}
+        "mingw" {"MinGW Makefiles"}
+        "msys" {"MSYS Makefiles"}
     }
-    if ($env:PLATFORM -eq "x64")
+    if (($env:PLATFORM -eq "x64") -and ($env:TOOLSET -ne "mingw") ($env:TOOLSET -ne "msys"))
     {
         $generator = "$generator Win64"
     }
@@ -40,16 +42,16 @@ before_build:
 
 build:
   verbosity: minimal
-  project: build/data.sln
+  # project: build/data.sln
 
-# build_script:
-# - ps: |
-#     if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
-#     {
-#         return
-#     }
-#     cd build
-#     & cmake --build . --config $env:CONFIGURATION
-#     if ($LastExitCode -ne 0) {
-#         throw "Exec: $ErrorMessage"
-#     }
+build_script:
+- ps: |
+    if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
+    {
+        return
+    }
+    cd build
+    & cmake --build . --config $env:CONFIGURATION
+    if ($LastExitCode -ne 0) {
+        throw "Exec: $ErrorMessage"
+    }
