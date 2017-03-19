@@ -5,7 +5,7 @@ os: Visual Studio 2015
 
 platform:
   - x64
-  - win32
+  - Win32
 
 environment:
   matrix:
@@ -39,5 +39,16 @@ before_build:
     cd ..
 
 build:
-  project: build/data.sln
-  parallel: true
+  verbosity: minimal
+
+build_script:
+- ps: |
+    if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
+    {
+        return
+    }
+    cd build
+    & cmake --build . --config $env:CONFIGURATION
+    if ($LastExitCode -ne 0) {
+        throw "Exec: $ErrorMessage"
+    }
