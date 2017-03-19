@@ -15,7 +15,7 @@ environment:
   - Toolset: v100
 
 configuration:
-  - Release
+  - Debug
 
 install:
   - git submodule update --init --recursive
@@ -40,15 +40,16 @@ before_build:
 
 build:
   verbosity: minimal
+  project: build/data.sln
 
-build_script:
-- ps: |
-    if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
-    {
-        return
-    }
-    cd build
-    & cmake --build . --config $env:CONFIGURATION
-    if ($LastExitCode -ne 0) {
-        throw "Exec: $ErrorMessage"
-    }
+# build_script:
+# - ps: |
+#     if (($env:TOOLSET -eq "v100") -and ($env:PLATFORM -eq "x64"))
+#     {
+#         return
+#     }
+#     cd build
+#     & cmake --build . --config $env:CONFIGURATION
+#     if ($LastExitCode -ne 0) {
+#         throw "Exec: $ErrorMessage"
+#     }
