@@ -48,3 +48,7 @@ build_script:
     if ($LastExitCode -ne 0) {
         throw "Exec: $ErrorMessage"
     }
+test_script:
+- ps: |
+    cd build\tests
+    & .\$env:CONFIGURATION\test_all.exe

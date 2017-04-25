@@ -12,12 +12,15 @@ add_library(data STATIC ${SRC})
 
 
 # TODO: Only enable testing when certain variable is set
-# enable_testing ()
+enable_testing()
 
-# option(BUILD_GTEST "Builds the googletest subproject" ON)
-# option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
-# add_subdirectory(./external/gtest/)
+option(BUILD_GTEST "Builds the googletest subproject" ON)
+option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
+if(MSVC)
+  option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." ON)
+endif()
+add_subdirectory(./external/gtest/)
 
-# include_directories(./external/gtest/googletest/include)
-# add_subdirectory(./tests)
-# add_test (NAME TestAll COMMAND test_all)
+include_directories(./external/gtest/googletest/include)
+add_subdirectory(./tests)
+add_test (NAME TestAll COMMAND test_all)
