@@ -50,5 +50,5 @@ build_script:
     }
 test_script:
 - ps: |
-    cd build\tests
+    cd tests
     & .\$env:CONFIGURATION\test_all.exe
