@@ -49,9 +49,14 @@ test_script:
     cd tests
     & .\$env:CONFIGURATION\test_all.exe
 
+after_build:
+- ps: |
+    7z a -tzip windows-msvc.zip build\$(CONFIGURATION)\data.lib
+
 artifacts:
-  - path: build\$(CONFIGURATION)\data.lib
+  - path: build\windows-msvc.zip
     name: dataLib
+    type: zip
 
 deploy:
   provider: GitHub
