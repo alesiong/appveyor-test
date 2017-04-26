@@ -42,6 +42,6 @@ deploy:
   file: "*.tar.gz"
   on:
     repo: alesiong/appveyor-test
-    # all_branches: true
-    condition: " (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) ) || ( $CXX = clang++ ) "
+    all_branches: true
+    condition: " ($TRAVIS_TAG) && ((( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) ) || ( $CXX = clang++ )) "
     tag: true
