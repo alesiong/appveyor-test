@@ -29,6 +29,9 @@ script:
 notifications:
   email: false
 sudo: false
+
+after_success:
+  - tar -czvf $TRAVIS_OS_NAME.tar.gz libdata.a
 deploy:
   skip_cleanup: true
   provider: releases
