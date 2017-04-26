@@ -32,7 +32,17 @@ script:
   - mkdir build && cd build
   - cmake ..
   - make && make test
+
+deploy:
+  provider: releases
+  # api_key: "GITHUB OAUTH TOKEN"
+  file: "build/libdata.a"
+  skip_cleanup: true
+  on:
+    branch: master
+    condition: "$CC = clang"
+    # tags: true
+
 notifications:
   email: false
 sudo: false
-
