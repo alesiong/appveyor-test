@@ -50,7 +50,7 @@ test_script:
     & .\$env:CONFIGURATION\test_all.exe
 
 artifacts:
-  - path: build\$env:CONFIGURATION\data.lib
+  - path: build\$(CONFIGURATION)\data.lib
     name: dataLib
 
 deploy:
