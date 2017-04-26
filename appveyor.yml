@@ -36,7 +36,6 @@ before_build:
 
 build:
   verbosity: minimal
-  # project: build/data.sln
 
 build_script:
 - ps: |
