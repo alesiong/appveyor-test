@@ -1,7 +1,7 @@
 # shallow clone
-clone_depth: 10
+clone_depth: 1
 
-os: Visual Studio 2017
+# os: Visual Studio 2017
 
 platform:
   - x64
@@ -9,8 +9,12 @@ platform:
 
 environment:
   matrix:
-   - Toolset: v140
-   - Toolset: v150
+   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+     Toolset: v140
+   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+     Toolset: v150
+   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+     Toolset: mingw
 
 configuration:
   - Debug
@@ -26,8 +30,9 @@ before_build:
     {
         "v140" {"Visual Studio 14 2015"}
         "v150" {"Visual Studio 15 2017"}
+        "mingw" {"MinGW Makefiles"}
     }
-    if ($env:PLATFORM -eq "x64")
+    if (($env:PLATFORM -eq "x64") -and ($env:TOOLSET -ne "mingw"))
     {
         $generator = "$generator Win64"
     }
@@ -46,8 +51,15 @@ build_script:
     }
 test_script:
 - ps: |
-    cd tests
-    & .\$env:CONFIGURATION\test_all.exe
+    if ($env:TOOLSET -ne "mingw")
+    {
+        cmake test
+    }
+    else
+    {
+        cd tests
+        & .\$env:CONFIGURATION\test_all.exe
+    }
 
 after_build:
 - ps: |
