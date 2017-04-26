@@ -10,7 +10,7 @@ platform:
 environment:
   matrix:
    - Toolset: v140
-   - Toolset: v120
+   - Toolset: v150
 
 configuration:
   - Debug
