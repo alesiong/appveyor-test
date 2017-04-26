@@ -55,13 +55,11 @@ artifacts:
 
 deploy:
   provider: GitHub
-  auth_token:
-    secure: 55wreyTxkD9ZSxHG49omtDAW3SEx86lz6V5ABL4tV7OVBUzNfLX3Ps2NLsfzTZOE
   description: |
     Releases
     Short Commit Hash $(GITREV)
   auth_token:
-    secure: "dbpsMC/MgPKWFNJCXpQl4cR8FYhepkPLjgNp/pRMktZ8oLKTqPYErfreaIxb/4P1"
+    secure: "55wreyTxkD9ZSxHG49omtDAW3SEx86lz6V5ABL4tV7OVBUzNfLX3Ps2NLsfzTZOE"
   artifact: dataLib
   draft: false
   prerelease: false
