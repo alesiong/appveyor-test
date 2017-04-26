@@ -30,10 +30,11 @@ notifications:
   email: false
 sudo: false
 deploy:
+  skip_cleanup: true
   provider: releases
   api_key:
     secure: SaduPOIhHxBGZ9Qj9YOrU4nuSh3m24vwDUHEzQXgROV9W1rdL8aZvSWwMvGsq4dv0XB8s+nQwPL7pfoj5lo/XoZqtmcZ9ExRwtMTLYZlaVXHZj9gg0udDR4uSnIU64+zndq0GY43f3RzhICEw0H7yNXiUKwvoXJYov9CfZbV8F/qYTR149ZyBJqLq1V56SXjMvMhQ79olLQnzwwcvVqS46et6IO15siOWH2U5Qb/QOZrk6GKUZgRkxlEOCSJN+2nzO8JrEY8QKomXwoucaWRBOl4aU+/sDwkaCfgUK1XdOdm68uWtq5Ix+lMSk0DZ0U/JcM58dndkXhG8NEdgIqyrzXd+qjhCAGHm4B0FlE+keeDO5RtZXxtIQZS2zZDlRwobutYxvxKphpYICxmbqEzzaUp0FzNMZ6yBHh4mEOjUl21Q6jl4gztAwMgvtI00rhDZPIs5Cw3G4ObGvMON4h5Jogp7NM/OlYz9X9pOtT+J8+P+S6/5NwmP7qu5/5IS+HVUCCsxRliWQvGDWQMrVnePV9lCIqIXeTM7aniP2qsJgsahJiIJSVlKb8MkUTiO5e62K0Hnvmow8fmbTeVMV4kmisdgsTTTIed4XZirqY+TQFFfmR/NGhtZZGPcjmSKY/tbxzGbdRdgzSP7diGBaPmg1Eg/dTt3LIuAS36fsuf3qk=
-  file: libdata.a
+  file: build/libdata.a
   on:
     repo: alesiong/appveyor-test
     branch: master
