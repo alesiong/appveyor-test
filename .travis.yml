@@ -31,7 +31,7 @@ notifications:
 sudo: false
 
 after_success: |
-  if  [ "$TRAVIS_OS_NAME" = "linux" ] then
+  if  [ "$TRAVIS_OS_NAME" = "linux" ]; then
     tar -czvf linux-gcc.tar.gz libdata.a
   else
     tar -czvf macos-clang.tar.gz libdata.a
