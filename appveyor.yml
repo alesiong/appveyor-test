@@ -5,7 +5,7 @@ os: Visual Studio 2015
 
 platform:
   - x64
-  - Win32
+  - x86
 
 environment:
   matrix:
@@ -51,7 +51,7 @@ test_script:
 
 after_build:
 - ps: |
-    7z a -tzip windows-msvc.zip ..\build\$env:CONFIGURATION\data.lib
+    7z a -tzip windows-$env:PLATFORM-msvc.zip ..\build\$env:CONFIGURATION\data.lib
 
 artifacts:
   - path: build\windows-msvc.zip
@@ -65,11 +65,10 @@ deploy:
   auth_token:
     secure: "55wreyTxkD9ZSxHG49omtDAW3SEx86lz6V5ABL4tV7OVBUzNfLX3Ps2NLsfzTZOE"
   artifact: dataLib
-  draft: true
+  draft: false
   prerelease: false
   force_update: true
   on:
     branch: master
     appveyor_repo_tag: true
-    platform: x64
     toolset: v140
