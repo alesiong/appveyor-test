@@ -36,4 +36,4 @@ deploy:
   file: build/libdata.a
   on:
     repo: alesiong/appveyor-test
-    condition: [ [ $TRAVIS_OS_NAME = linux ] && [ CXX = g++-4.9 ] ] || [ $CXX = clang++ ]
+    condition: "[ [ $TRAVIS_OS_NAME = linux ] && [ CXX = g++-4.9 ] ] || [ $CXX = clang++ ]"
