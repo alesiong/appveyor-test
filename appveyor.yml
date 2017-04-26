@@ -48,3 +48,20 @@ test_script:
 - ps: |
     cd tests
     & .\$env:CONFIGURATION\test_all.exe
+
+artifacts:
+  - path: build\$env:CONFIGURATION\data.lib
+    name: dataLib
+
+deploy:
+  provider: GitHub
+  description: |
+    Releases
+    Short Commit Hash $(GITREV)
+  auth_token:
+    secure: "dbpsMC/MgPKWFNJCXpQl4cR8FYhepkPLjgNp/pRMktZ8oLKTqPYErfreaIxb/4P1"
+  artifact: dataLib
+  draft: false
+  prerelease: false
+  on:
+    branch: master
