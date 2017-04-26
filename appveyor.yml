@@ -31,7 +31,7 @@ before_build:
     {
         "v140" {"Visual Studio 14 2015"}
         "v150" {"Visual Studio 15 2017"}
-        "mingw" {"MSYS Makefiles"}
+        "mingw" {"MinGW Makefiles"}
     }
     if (($env:PLATFORM -eq "x64") -and ($env:TOOLSET -ne "mingw"))
     {
@@ -40,8 +40,8 @@ before_build:
 
     if ($env:TOOLSET -eq "mingw")
     {
-        rm C:/Program Files/Git/usr/bin/sh.exe
-        cmake -G "$generator" -DCMAKE_MAKE_PROGRAM=mingw32-make ..
+        rm "C:/Program Files/Git/usr/bin/sh.exe"
+        cmake -G "$generator" #-DCMAKE_MAKE_PROGRAM=mingw32-make ..
     }
     else
     {
