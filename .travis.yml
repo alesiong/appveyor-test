@@ -16,8 +16,8 @@ addons:
     - g++-4.9
     - clang-3.7
 os:
-- linux
 - osx
+- linux
 language: cpp
 compiler:
 - gcc
@@ -38,3 +38,4 @@ deploy:
     repo: alesiong/appveyor-test
     branch: master
     condition: "[ [ $TRAVIS_OS_NAME = linux ] && [ CXX = g++-4.9 ] ] || [ $CXX = clang++ ]"
+    tag: true
