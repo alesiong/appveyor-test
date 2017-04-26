@@ -37,7 +37,6 @@ deploy:
   file: libdata.a
   on:
     repo: alesiong/appveyor-test
-    # branch: master
+    branch: master
     condition: " (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) ) || ( $CXX = clang++ ) "
     tag: true
-    
