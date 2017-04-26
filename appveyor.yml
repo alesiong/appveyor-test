@@ -31,7 +31,7 @@ before_build:
     {
         "v140" {"Visual Studio 14 2015"}
         "v150" {"Visual Studio 15 2017"}
-        "mingw" {"MinGW Makefiles"}
+        "mingw" {"MSYS Makefiles"}
     }
     if (($env:PLATFORM -eq "x64") -and ($env:TOOLSET -ne "mingw"))
     {
