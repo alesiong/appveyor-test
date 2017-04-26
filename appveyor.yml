@@ -1,7 +1,7 @@
 # shallow clone
 clone_depth: 10
 
-os: Visual Studio 2015
+os: Visual Studio 2017
 
 platform:
   - x64
@@ -25,7 +25,7 @@ before_build:
     $generator = switch ($env:TOOLSET)
     {
         "v140" {"Visual Studio 14 2015"}
-        "v120" {"Visual Studio 12 2013"}
+        "v150" {"Visual Studio 15 2017"}
     }
     if ($env:PLATFORM -eq "x64")
     {
