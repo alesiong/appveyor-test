@@ -1,18 +1,13 @@
 install:
-# /usr/bin/gcc is 4.6 always, but gcc-X.Y is available.
 - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
-# /usr/bin/clang is 3.4, lets override with modern one.
-- if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
+- if [ "$CXX" = "clang++" ] && [ "$TRAVIS_OS_NAME" = "linux" ]; then export CXX="clang++-3.7"
+  CC="clang-3.7"; fi
 - echo ${PATH}
 - echo ${CXX}
-- ${CXX} --version
-- ${CXX} -v
+- "${CXX} --version"
+- "${CXX} -v"
 addons:
   apt:
-    # List of whitelisted in travis packages for ubuntu-precise can be found here:
-    #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
-    # List of whitelisted in travis apt-sources:
-    #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
     sources:
     - ubuntu-toolchain-r-test
     - llvm-toolchain-precise-3.7
@@ -20,29 +15,25 @@ addons:
     - gcc-4.9
     - g++-4.9
     - clang-3.7
-
 os:
-  - linux
-  - osx
+- linux
+- osx
 language: cpp
 compiler:
-  - gcc
-  - clang
+- gcc
+- clang
 script:
-  - mkdir build && cd build
-  - cmake ..
-  - make && make test
-
-deploy:
-  provider: releases
-  # api_key: "GITHUB OAUTH TOKEN"
-  file: "build/libdata.a"
-  skip_cleanup: true
-  on:
-    branch: master
-    condition: "$CC = clang"
-    # tags: true
-
+- mkdir build && cd build
+- cmake ..
+- make && make test
 notifications:
   email: false
 sudo: false
+deploy:
+  provider: releases
+  api_key:
+    secure: SaduPOIhHxBGZ9Qj9YOrU4nuSh3m24vwDUHEzQXgROV9W1rdL8aZvSWwMvGsq4dv0XB8s+nQwPL7pfoj5lo/XoZqtmcZ9ExRwtMTLYZlaVXHZj9gg0udDR4uSnIU64+zndq0GY43f3RzhICEw0H7yNXiUKwvoXJYov9CfZbV8F/qYTR149ZyBJqLq1V56SXjMvMhQ79olLQnzwwcvVqS46et6IO15siOWH2U5Qb/QOZrk6GKUZgRkxlEOCSJN+2nzO8JrEY8QKomXwoucaWRBOl4aU+/sDwkaCfgUK1XdOdm68uWtq5Ix+lMSk0DZ0U/JcM58dndkXhG8NEdgIqyrzXd+qjhCAGHm4B0FlE+keeDO5RtZXxtIQZS2zZDlRwobutYxvxKphpYICxmbqEzzaUp0FzNMZ6yBHh4mEOjUl21Q6jl4gztAwMgvtI00rhDZPIs5Cw3G4ObGvMON4h5Jogp7NM/OlYz9X9pOtT+J8+P+S6/5NwmP7qu5/5IS+HVUCCsxRliWQvGDWQMrVnePV9lCIqIXeTM7aniP2qsJgsahJiIJSVlKb8MkUTiO5e62K0Hnvmow8fmbTeVMV4kmisdgsTTTIed4XZirqY+TQFFfmR/NGhtZZGPcjmSKY/tbxzGbdRdgzSP7diGBaPmg1Eg/dTt3LIuAS36fsuf3qk=
+  file: build/libdata.a
+  on:
+    repo: alesiong/appveyor-test
+    condition: [ [ $TRAVIS_OS_NAME = linux ] && [ CXX = g++-4.9 ] ] || [ $CXX = clang++ ]
