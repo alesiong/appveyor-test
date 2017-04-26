@@ -54,7 +54,7 @@ after_build:
     7z a -tzip windows-$env:PLATFORM-msvc.zip ..\build\$env:CONFIGURATION\data.lib
 
 artifacts:
-  - path: build\windows-msvc.zip
+  - path: build\windows-$(PLATFORM)-msvc.zip
     name: dataLib
     type: zip
 
