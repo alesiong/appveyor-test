@@ -41,7 +41,7 @@ before_build:
     if ($env:TOOLSET -eq "mingw")
     {
         rm "C:/Program Files/Git/usr/bin/sh.exe"
-        cmake -G "$generator"
+        cmake -G "$generator" ..
     }
     else
     {
