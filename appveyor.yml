@@ -51,7 +51,7 @@ test_script:
 
 after_build:
 - ps: |
-    7z a -tzip windows-msvc.zip .\build\$env:CONFIGURATION\data.lib
+    7z a -tzip windows-msvc.zip ..\build\$env:CONFIGURATION\data.lib
 
 artifacts:
   - path: build\windows-msvc.zip
