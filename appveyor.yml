@@ -9,12 +9,13 @@ platform:
 
 environment:
   matrix:
+   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+     Toolset: mingw
    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
      Toolset: v140
    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
      Toolset: v150
-   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-     Toolset: mingw
+
 
 configuration:
   - Debug
@@ -51,9 +52,9 @@ build_script:
     }
 test_script:
 - ps: |
-    if ($env:TOOLSET -ne "mingw")
+    if ($env:TOOLSET -eq "mingw")
     {
-        cmake test
+        make test
     }
     else
     {
