@@ -30,8 +30,12 @@ notifications:
   email: false
 sudo: false
 
-after_success:
-  - tar -czvf $TRAVIS_OS_NAME.tar.gz libdata.a
+after_success: |
+  if  [ "$TRAVIS_OS_NAME" = "linux" ] then
+    tar -czvf linux-gcc.tar.gz libdata.a
+  else
+    tar -czvf macos-clang.tar.gz libdata.a
+  fi
 
 deploy:
   skip_cleanup: true
