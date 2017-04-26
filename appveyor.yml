@@ -57,7 +57,6 @@ deploy:
   provider: GitHub
   description: |
     Releases
-    Short Commit Hash $(GITREV)
   auth_token:
     secure: "55wreyTxkD9ZSxHG49omtDAW3SEx86lz6V5ABL4tV7OVBUzNfLX3Ps2NLsfzTZOE"
   artifact: dataLib
@@ -67,3 +66,5 @@ deploy:
   on:
     branch: master
     appveyor_repo_tag: true
+    platform: x64
+    toolset: v140
