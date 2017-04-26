@@ -43,4 +43,4 @@ deploy:
     repo: alesiong/appveyor-test
     all_branches: true
     condition: " (( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) ) || ( $CXX = clang++ ) "
-    tag: true
+    # tag: true
