@@ -55,7 +55,7 @@ before_build:
 
     if ($env:TOOLSET -eq "mingw")
     {
-        $env:PATH = "$pwd.Path\$env:MINGW_DIR\bin;$env:PATH"
+        $env:PATH = "$pwd.Path\..\$env:MINGW_DIR\bin;$env:PATH"
         cmake -G "$generator" ..
     }
     else
