@@ -77,8 +77,16 @@ build:
 
 build_script:
 - ps: |
-    cd build
-    & cmake --build . --config $env:CONFIGURATION --use-stderr
+    if ($env:TOOLSET -eq "mingw")
+    {
+        mingw32-make
+    }
+    else
+    {
+        cd build
+        & cmake --build . --config $env:CONFIGURATION
+    }
+
 
 test_script:
 - ps: |
