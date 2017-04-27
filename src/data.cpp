@@ -26,4 +26,4 @@ std::string ToString(const Direction d) {
     }
 }
 
-int c(){}
+int c(){s;}
