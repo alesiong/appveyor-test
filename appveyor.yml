@@ -79,7 +79,8 @@ build_script:
 - ps: |
     if ($env:TOOLSET -eq "mingw")
     {
-        mingw32-make
+        cd build
+        & mingw32-make
     }
     else
     {
