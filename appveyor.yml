@@ -7,10 +7,6 @@ platform:
   - x64
   - x86
 
-cache:
-- x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z
-- i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z
-
 environment:
   matrix:
    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -20,6 +16,9 @@ environment:
    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
      Toolset: v150
 
+branches:
+  except:
+    - gh-pages
 
 configuration:
   - Debug
@@ -44,7 +43,6 @@ install:
   - python -m ensurepip
   - python -m pip install cpp-coveralls==0.3.11
   - ps: Get-Command sh.exe -All | Remove-Item
-  # - set Path=%CD%\%MINGW_DIR%\bin;%Path%
 
 before_build:
 - ps: |
