@@ -7,6 +7,10 @@ platform:
   - x64
   - x86
 
+cache:
+- x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z
+- i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z
+
 environment:
   matrix:
    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -50,7 +54,7 @@ before_build:
 
     if ($env:TOOLSET -eq "mingw")
     {
-        $env:Path=$env:CD\$env:MINGW_DIR\bin;$env:Path
+        $env:Path="$env:CD\$env:MINGW_DIR\bin;$env:Path"
         cmake -G "$generator" ..
     }
     else
