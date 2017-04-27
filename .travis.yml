@@ -50,14 +50,14 @@ sudo: false
 
 after_success: |
   if  [ "$TRAVIS_OS_NAME" = "linux" ]; then
-    tar -czvf linux-gcc.tar.gz libdata.a
+    tar -czvf linux-gcc.tar.gz libdata.a libdata.a ../src/include
     if [ "$CXX" = "g++-4.9" ]; then
       cd $TRAVIS_BUILD_DIR
       chmod +x document.sh
       ./document.sh
     fi
   else
-    tar -czvf macos-clang.tar.gz libdata.a
+    tar -czvf macos-clang.tar.gz libdata.a ../src/include
   fi
 
 deploy:

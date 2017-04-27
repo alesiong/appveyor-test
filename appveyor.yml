@@ -68,12 +68,8 @@ before_build:
     if ($env:TOOLSET -eq "mingw")
     {
         $env:PATH = "$pwd.Path\..\$env:MINGW_DIR\bin;$env:PATH"
-        cmake -G "$generator" ..
     }
-    else
-    {
-        cmake -G "$generator"  ..
-    }
+    cmake -G "$generator" .. -DCMAKE_CONFIGURATION_TYPES="Debug;Release"
     cd ..
 
 build:
