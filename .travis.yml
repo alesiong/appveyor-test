@@ -33,15 +33,16 @@ addons:
     - graphviz
 
 os:
-- linux
-- osx
+  - linux
+  - osx
+
 language: cpp
 compiler:
 - gcc
 - clang
 script:
 - mkdir build && cd build
-- cmake ..
+- if [ $TRAVIS_TAG ]; then cmake .. -DCMAKE_BUILD_TYPE=Release ; else cmake .. -DCMAKE_BUILD_TYPE=Debug; fi
 - make && make test
 notifications:
   email: false
@@ -51,7 +52,7 @@ after_success: |
   if  [ "$TRAVIS_OS_NAME" = "linux" ]; then
     tar -czvf linux-gcc.tar.gz libdata.a
     cd ../src
-    tar -uzvf ../build/linux-gcc.tar.gz include
+    tar -rzvf ../build/linux-gcc.tar.gz include
     cd ../build
     if [ "$CXX" = "g++-4.9" ]; then
       cd $TRAVIS_BUILD_DIR
@@ -61,7 +62,7 @@ after_success: |
   else
     tar -czvf macos-clang.tar.gz libdata.a
     cd ../src
-    tar -uzvf ../build/macos-clang.tar.gz include
+    tar -rzvf ../build/macos-clang.tar.gz include
     cd ../build
   fi
 

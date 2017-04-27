@@ -36,7 +36,7 @@ install:
           $env:MINGW_URL = "https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/4.9.2/threads-win32/dwarf/i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z/download"
           $env:MINGW_ARCHIVE = "i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z"
       }
-      if ($appveyor_repo_tag)
+      if ($env:appveyor_repo_tag)
       {
           $env:configuration = "Release"
       }
