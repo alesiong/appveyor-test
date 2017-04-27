@@ -49,12 +49,12 @@ notifications:
 sudo: false
 
 after_success: |
-  if  [ "$TRAVIS_OS_NAME" = "linux" ]; then
+  if  [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
     tar -czvf linux-gcc.tar.gz libdata.a
     cd ../src
     tar -rzvf ../build/linux-gcc.tar.gz include
     cd ../build
-    if [ "$CXX" = "g++-4.9" ]; then
+    if [[ "$CXX" == "g++-4.9" ]]; then
       cd $TRAVIS_BUILD_DIR
       chmod +x document.sh
       ./document.sh
