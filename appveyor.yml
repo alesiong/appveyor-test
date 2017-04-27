@@ -31,19 +31,18 @@ configuration:
 install:
   - git submodule update --init --recursive
   - ps: |
-    if ($env:PLATFORM -eq "x64")
-    {
-        $env:MINGW_DIR = mingw64
-        $env:MINGW_URL = https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/4.9.2/threads-win32/seh/x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z/download
-        $env:MINGW_ARCHIVE = x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z
-    }
-    else
-    {
-        $env:MINGW_DIR = mingw32
-        $env:MINGW_URL = https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/4.9.2/threads-win32/dwarf/i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z/download
-        $env:MINGW_ARCHIVE = i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z
-    }
-
+      if ($env:PLATFORM -eq "x64")
+      {
+          $env:MINGW_DIR = mingw64
+          $env:MINGW_URL = https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/4.9.2/threads-win32/seh/x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z/download
+          $env:MINGW_ARCHIVE = x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z
+      }
+      else
+      {
+          $env:MINGW_DIR = mingw32
+          $env:MINGW_URL = https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/4.9.2/threads-win32/dwarf/i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z/download
+          $env:MINGW_ARCHIVE = i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z
+      }
   - if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
   - 7z x -y "%MINGW_ARCHIVE%" > nul
   - python -m ensurepip
