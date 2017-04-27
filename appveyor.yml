@@ -76,17 +76,7 @@ build:
   verbosity: minimal
 
 build_script:
-- ps: |
-    if ($env:TOOLSET -eq "mingw")
-    {
-        cd build
-        & mingw32-make
-    }
-    else
-    {
-        cd build
-        & cmake --build . --config $env:CONFIGURATION
-    }
+  - cd build && cmake --build . --config $env:CONFIGURATION
 
 
 test_script:
