@@ -102,7 +102,7 @@ after_build:
     }
     else
     {
-        7z a -tzip windows-$env:PLATFORM-msvc.zip ..\build\$env:CONFIGURATION\data.lib ..\src\include
+        7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip ..\build\$env:CONFIGURATION\data.lib ..\src\include
     }
 
 artifacts:
@@ -123,4 +123,3 @@ deploy:
   on:
     branch: master
     appveyor_repo_tag: true
-    toolset: v140
