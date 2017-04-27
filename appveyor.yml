@@ -20,8 +20,6 @@ branches:
   except:
     - gh-pages
 
-configuration:
-  - Debug
 
 install:
   - git submodule update --init --recursive
@@ -37,6 +35,14 @@ install:
           $env:MINGW_DIR = "mingw32"
           $env:MINGW_URL = "https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/4.9.2/threads-win32/dwarf/i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z/download"
           $env:MINGW_ARCHIVE = "i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z"
+      }
+      if ($appveyor_repo_tag)
+      {
+          $env:configuration = "Release"
+      }
+      else
+      {
+          $env:configuration = "Debug"
       }
   - if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
   - 7z x -y "%MINGW_ARCHIVE%" > nul
@@ -96,11 +102,11 @@ after_build:
 - ps: |
     if ($env:TOOLSET -eq "mingw")
     {
-        7z a -tzip windows-$env:PLATFORM-mingw.zip ..\build\libdata.a
+        7z a -tzip windows-$env:PLATFORM-mingw.zip ..\build\libdata.a ..\src\include
     }
     else
     {
-        7z a -tzip windows-$env:PLATFORM-msvc.zip ..\build\$env:CONFIGURATION\data.lib
+        7z a -tzip windows-$env:PLATFORM-msvc.zip ..\build\$env:CONFIGURATION\data.lib ..\src\include
     }
 
 artifacts:
