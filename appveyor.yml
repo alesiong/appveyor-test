@@ -11,6 +11,11 @@ environment:
   matrix:
    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
      Toolset: mingw
+     MINGW_DIR: mingw32
+     MINGW_URL: https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/4.9.2/threads-win32/dwarf/i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z/download
+     MINGW_ARCHIVE: i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z
+     WINDBG_DIR: '%ProgramFiles(x86)%\Windows Kits\8.1\Debuggers\x86'
+
   #  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
   #    Toolset: v140
   #  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -22,6 +27,11 @@ configuration:
 
 install:
   - git submodule update --init --recursive
+  - if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
+  - 7z x -y "%MINGW_ARCHIVE%" > nul
+  - python -m ensurepip
+  - python -m pip install cpp-coveralls==0.3.11
+  - ps: Get-Command sh.exe -All | Remove-Item
 
 before_build:
 - ps: |
@@ -40,7 +50,7 @@ before_build:
 
     if ($env:TOOLSET -eq "mingw")
     {
-        rm "C:/Program Files/Git/usr/bin/sh.exe"
+        $env:Path=$env:CD\$env:MINGW_DIR\bin;$env:Path
         cmake -G "$generator" ..
     }
     else
