@@ -27,10 +27,10 @@ addons:
     - g++-4.9
     - clang-3.7
     - doxygen
-    - doxygen-doc
-    - doxygen-latex
-    - doxygen-gui
-    - graphviz
+    # - doxygen-doc
+    # - doxygen-latex
+    # - doxygen-gui
+    # - graphviz
 
 os:
   - linux
