@@ -36,7 +36,7 @@ install:
   - python -m ensurepip
   - python -m pip install cpp-coveralls==0.3.11
   - ps: Get-Command sh.exe -All | Remove-Item
-  - set Path=%CD%\%MINGW_DIR%\bin;%Path%
+  # - set Path=%CD%\%MINGW_DIR%\bin;%Path%
 
 before_build:
 - ps: |
@@ -55,6 +55,7 @@ before_build:
 
     if ($env:TOOLSET -eq "mingw")
     {
+        $env:PATH = "$pwd.Path\$env:MINGW_DIR\bin;$env:PATH"
         cmake -G "$generator" ..
     }
     else
