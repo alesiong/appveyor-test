@@ -25,5 +25,4 @@ std::string ToString(const Direction d) {
             return "west";
     }
 }
-
-int c(){s;}
+int s(){}
