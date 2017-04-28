@@ -80,3 +80,11 @@ deploy:
     all_branches: true
     condition: " ($TRAVIS_TAG) && ((( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) ) || ( $CXX = clang++ )) "
     tag: true
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  on:
+    branch: master
+  local_dir: $TRAVIS_BUILD_DIR/html
