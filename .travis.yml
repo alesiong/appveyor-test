@@ -7,7 +7,8 @@ env:
     - GH_REPO_NAME: appveyor-test
     - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
     - GH_REPO_REF: github.com/alesiong/appveyor-test.git
-    - secure: "jFXoQCyGKdP1A9gPTVZUZkF2+chev25/QITN0KnnlCyB205WB1pNBtRbeV3YonY0+/vyL++6PCu9+T65+/GZaT3RA2uPVqgVkX4RxKkvDmECTC/QgKGcvgp06EOp5Y9tfOhnTd/+xbbZzwT1uBDO83YN3eruCQ9rsxa+AIN3DmrvVYy/QXU9CR8x0XDfWN19tYH3k/wY+EKTYLr65zfP6ZuFWAcqqzNM4J2NT8h4jZBdXNz6N5SlR7erN8XNNDq5mle4UvFLlUcimoMJ2isJBLk8uD8lJmXfaQ9ho4CYd3PKkg5SDoca77IxTQyPB3dF2zgbh57Y7nDG3YeKoRhzykI6qVDqF8r8ThOilqGn0IZfjD5OrVRwTH7Qy51UmfpXlHDeNthNxInwdeUrT6Bwic5F85gUB1N+KTVbTJHwogvBy+fPGjf407RZCVeUDWB6ojkb+h7yK3pG0LK67TiYynfFDY/hIr4ktS9GFTvALF/ushVEo1uIgKNRpJqQTcQ/Gh6QdnvC3CZ83W9ig8/bMjkkrXh8makbrmPzVV6eDGy6BRHLsa3thDlHNhiO5Eg/Sgl1fqnI49k8HkgHbzBGEHOaPzpfGL0iQGr0kuzdnrtF9wgwt/XmQrh7RBhdWPwQJYoQRUNUap8Ns9V0fMbTs4dyB9kSdJgUQRBKL1BNbhw="
+    # - secure: "jFXoQCyGKdP1A9gPTVZUZkF2+chev25/QITN0KnnlCyB205WB1pNBtRbeV3YonY0+/vyL++6PCu9+T65+/GZaT3RA2uPVqgVkX4RxKkvDmECTC/QgKGcvgp06EOp5Y9tfOhnTd/+xbbZzwT1uBDO83YN3eruCQ9rsxa+AIN3DmrvVYy/QXU9CR8x0XDfWN19tYH3k/wY+EKTYLr65zfP6ZuFWAcqqzNM4J2NT8h4jZBdXNz6N5SlR7erN8XNNDq5mle4UvFLlUcimoMJ2isJBLk8uD8lJmXfaQ9ho4CYd3PKkg5SDoca77IxTQyPB3dF2zgbh57Y7nDG3YeKoRhzykI6qVDqF8r8ThOilqGn0IZfjD5OrVRwTH7Qy51UmfpXlHDeNthNxInwdeUrT6Bwic5F85gUB1N+KTVbTJHwogvBy+fPGjf407RZCVeUDWB6ojkb+h7yK3pG0LK67TiYynfFDY/hIr4ktS9GFTvALF/ushVEo1uIgKNRpJqQTcQ/Gh6QdnvC3CZ83W9ig8/bMjkkrXh8makbrmPzVV6eDGy6BRHLsa3thDlHNhiO5Eg/Sgl1fqnI49k8HkgHbzBGEHOaPzpfGL0iQGr0kuzdnrtF9wgwt/XmQrh7RBhdWPwQJYoQRUNUap8Ns9V0fMbTs4dyB9kSdJgUQRBKL1BNbhw="
+    - ENCRYPTION_LABEL: "18f782006878"
 
 
 install:
@@ -50,11 +51,8 @@ sudo: false
 
 after_success: |
   if  [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-    tar -cvf linux-gcc.tar libdata.a
-    cd ../src
-    tar -rvf ../build/linux-gcc.tar include
-    cd ../build
-    tar -cvzf linux-gcc.tar.gz @linux-gcc.tar
+    cp -r ../src/include ./include
+    tar -czvf linux-gcc.tar.gz libdata.a include
     if [[ "$CXX" == "g++-4.9" ]]; then
       cd $TRAVIS_BUILD_DIR
       chmod +x document.sh
