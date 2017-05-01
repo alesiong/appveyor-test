@@ -48,7 +48,7 @@ install:
           $env:configuration = "Debug"
       }
   - |
-    if "%TOOLSET%" == "mingw" (
+    if "%TOOLSET%"=="mingw" (
       if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
       7z x -y "%MINGW_ARCHIVE%" > nul
       python -m ensurepip
@@ -83,7 +83,7 @@ build:
 
 build_script: |
   cd build
-  if "%TOOLSET%" == "mingw" (
+  if "%TOOLSET%"=="mingw" (
     cmake --build . -- -j
   ) else (
     cmake --build . --config $env:CONFIGURATION
