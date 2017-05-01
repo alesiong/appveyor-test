@@ -47,10 +47,13 @@ install:
       {
           $env:configuration = "Debug"
       }
-  - if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
-  - 7z x -y "%MINGW_ARCHIVE%" > nul
-  - python -m ensurepip
-  - python -m pip install cpp-coveralls==0.3.11
+  - |
+    if "%TOOLSET%" == "mingw" {
+      if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
+      7z x -y "%MINGW_ARCHIVE%" > nul
+      python -m ensurepip
+      python -m pip install cpp-coveralls==0.3.11
+    }
   - ps: Get-Command sh.exe -All | Remove-Item
 
 before_build:
@@ -78,8 +81,13 @@ before_build:
 build:
   verbosity: minimal
 
-build_script:
-  - cd build && cmake --build . --config $env:CONFIGURATION -- -j
+build_script: |
+  cd build
+  if "%TOOLSET%" == "mingw" {
+    cmake --build . -- -j
+  } else {
+    cmake --build . --config $env:CONFIGURATION
+  }
 
 
 test_script:
