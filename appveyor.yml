@@ -92,7 +92,7 @@ build_script: |
 
   if "%TOOLSET%"=="mingw" cmake --build . -- -j
   if NOT "%TOOLSET%"=="mingw" cmake --build . --config Debug
-  if "%APPVEYOR_REPO_TAG%"=="true" AND NOT "%TOOLSET%"=="mingw" cmake --build . --config Release
+  if "%APPVEYOR_REPO_TAG%"=="true" if NOT "%TOOLSET%"=="mingw" cmake --build . --config Release
 
 
 test_script:
@@ -115,7 +115,14 @@ after_build:
     }
     else
     {
+      if ($env:appveyor_repo_tag -eq "true")
+      {
         7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip ..\build\Debug ..\build\Release ..\src\include
+      }
+      else
+      {
+        7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip ..\build\Debug ..\src\include
+      }
     }
 
 artifacts:
