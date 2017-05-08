@@ -50,8 +50,8 @@ install:
   - ps: |
       if ($env:TOOLSET -eq "mingw")
       {
-        cmd /C if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
-        cmd /C 7z x -y "%MINGW_ARCHIVE%" > nul
+        cmd /C 'if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"'
+        cmd /C '7z x -y "%MINGW_ARCHIVE%" > nul'
         python -m ensurepip
         python -m pip install cpp-coveralls==0.3.11
       }
@@ -92,14 +92,14 @@ build_script:
     cd build
     if ($env:TOOLSET -eq "mingw")
     {
-      cmd /C cmake --build . -- -j
+      cmd /C 'cmake --build . -- -j'
     }
     else
     {
-      cmake --build . --config Debug
+      cmd /C 'cmake --build . --config Debug'
       if ($env:appveyor_repo_tag -eq "true")
       {
-        cmd /C cmake --build . --config Release
+        cmd /C 'cmake --build . --config Release'
       }
     }
 
