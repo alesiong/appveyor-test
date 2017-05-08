@@ -51,7 +51,7 @@ install:
       if ($env:TOOLSET -eq "mingw")
       {
         cmd /C if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
-        7z x -y "%MINGW_ARCHIVE%" > nul
+        cmd /C 7z x -y "%MINGW_ARCHIVE%" > nul
         python -m ensurepip
         python -m pip install cpp-coveralls==0.3.11
       }
