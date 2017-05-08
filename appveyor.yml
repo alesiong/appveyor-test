@@ -87,21 +87,11 @@ before_build:
 build:
   verbosity: minimal
 
-build_script:
-- ps: |
-    cd build
-    if ($env:TOOLSET -eq "mingw")
-    {
-      cmd /C 'cmake --build . -- -j'
-    }
-    else
-    {
-      cmd /C 'cmake --build . --config Debug'
-      if ($env:appveyor_repo_tag -eq "true")
-      {
-        cmd /C 'cmake --build . --config Release'
-      }
-    }
+build_script: |
+  cd build
+
+  if "%TOOLSET%"=="mingw" cmake --build . -- -j
+  if NOT "%TOOLSET%"=="mingw" (cmake --build . --config Debug if "%APPVEYOR_REPO_TAG%"=="true" cmake --build . --config Release)
 
 
 test_script:
