@@ -82,8 +82,8 @@ before_build:
 build:
   verbosity: minimal
 
-build_script: |
-  cd build
+build_script: >-
+  cd build && 
   if "%TOOLSET%"=="mingw" (
     cmake --build . -- -j
   ) else (
