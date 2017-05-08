@@ -12,9 +12,9 @@ environment:
    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
      Toolset: mingw
    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-     Toolset: v140
+     Toolset: "2015"
    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-     Toolset: v150
+     Toolset: "2017"
 
 branches:
   except:
@@ -64,8 +64,8 @@ before_build:
     cd build
     $generator = switch ($env:TOOLSET)
     {
-        "v140" {"Visual Studio 14 2015"}
-        "v150" {"Visual Studio 15 2017"}
+        "2015" {"Visual Studio 14 2015"}
+        "2017" {"Visual Studio 15 2017"}
         "mingw" {"MinGW Makefiles"}
     }
     if (($env:PLATFORM -eq "x64") -and ($env:TOOLSET -ne "mingw"))

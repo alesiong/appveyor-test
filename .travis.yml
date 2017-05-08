@@ -60,7 +60,7 @@ after_success: |
     cp -r ../src/include ./include
     tar -czvf linux-$CC.tar.gz libdata.a include
   else
-    tar -cvf macos-clang.tar libdata.a
+    tar -cvf macos.tar libdata.a
     cd ../src
     tar -rvf ../build/macos.tar include
     cd ../build
