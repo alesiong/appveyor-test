@@ -74,8 +74,12 @@ before_build:
     if ($env:TOOLSET -eq "mingw")
     {
         $env:PATH = "$pwd.Path\..\$env:MINGW_DIR\bin;$env:PATH"
+        cmake -G "$generator" .. -DCMAKE_BUILD_TYPE=$env:CONFIGURATION
     }
+    else
+    {
     cmake -G "$generator" .. -DCMAKE_CONFIGURATION_TYPES="Debug;Release"
+    }
     cd ..
 
 build:
@@ -86,7 +90,11 @@ build_script: |
   if "%TOOLSET%"=="mingw" (
     cmake --build . -- -j
   ) else (
-    cmake --build . --config $env:CONFIGURATION
+    cmake --build . --config Debug
+    if ($env:appveyor_repo_tag -eq "true")
+    {
+      cmake --build . --config Release
+    }
   )
 
 
@@ -99,7 +107,7 @@ test_script:
     else
     {
         cd tests
-        & .\$env:CONFIGURATION\test_all.exe
+        & .\Debug\test_all.exe
     }
 
 after_build:
@@ -110,7 +118,7 @@ after_build:
     }
     else
     {
-        7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip ..\build\$env:CONFIGURATION\data.lib ..\src\include
+        7z a -tzip windows-$env:PLATFORM-msvc-$env:TOOLSET.zip ..\build\Debug ..\build\Release ..\src\include
     }
 
 artifacts:

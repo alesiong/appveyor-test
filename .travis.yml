@@ -50,20 +50,21 @@ notifications:
 sudo: false
 
 after_success: |
+  if [[ "$CXX" == "g++-4.9" ]]; then
+    CC="gcc"
+  fi
+  if [[ "$CXX" = "clang++" ]]; then
+    CC="clang"
+  fi
   if  [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
     cp -r ../src/include ./include
-    tar -czvf linux-gcc.tar.gz libdata.a include
-    if [[ "$CXX" == "g++-4.9" ]]; then
-      cd $TRAVIS_BUILD_DIR
-      chmod +x document.sh
-      ./document.sh
-    fi
+    tar -czvf linux-$CC.tar.gz libdata.a include
   else
     tar -cvf macos-clang.tar libdata.a
     cd ../src
-    tar -rvf ../build/macos-clang.tar include
+    tar -rvf ../build/macos.tar include
     cd ../build
-    tar -cvzf macos-clang.tar.gz @macos-clang.tar
+    tar -cvzf macos-$CC.tar.gz @macos.tar
   fi
 
 deploy:
@@ -76,7 +77,7 @@ deploy:
   on:
     repo: alesiong/appveyor-test
     all_branches: true
-    condition: " ($TRAVIS_TAG) && ((( $TRAVIS_OS_NAME = linux ) && ( $CXX = g++-4.9 ) ) || ( $CXX = clang++ )) "
+    condition: " ($TRAVIS_TAG) "
     tag: true
 
 # deploy:
