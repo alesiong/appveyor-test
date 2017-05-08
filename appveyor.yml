@@ -91,7 +91,8 @@ build_script: |
   cd build
 
   if "%TOOLSET%"=="mingw" cmake --build . -- -j
-  if NOT "%TOOLSET%"=="mingw" (cmake --build . --config Debug if "%APPVEYOR_REPO_TAG%"=="true" cmake --build . --config Release)
+  if NOT "%TOOLSET%"=="mingw" cmake --build . --config Debug
+  if "%APPVEYOR_REPO_TAG%"=="true" AND NOT "%TOOLSET%"=="mingw" cmake --build . --config Release
 
 
 test_script:

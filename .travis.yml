@@ -53,7 +53,7 @@ after_success: |
   if [[ "$CXX" == "g++-4.9" ]]; then
     CC="gcc"
   fi
-  if [[ "$CXX" = "clang++" ]]; then
+  if [[ "$CXX" = "clang++-3.7" ]]; then
     CC="clang"
   fi
   if  [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
